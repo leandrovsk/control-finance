@@ -14,7 +14,6 @@ let outValues = document.querySelector(".out-values");
 let valuesArr = [0];
 let selectedOutput = "all";
 
-
 let valueToBrl = (value) => {
   oldValue = (Math.round(value * 100) / 100).toFixed(2);
   newValue = "";
@@ -38,6 +37,69 @@ let valueToUsd = (value) => {
     }
   }
   return parseFloat(newValue);
+};
+
+let clearPath = () => {
+  inputsSection.innerHTML = "";
+  valuesArr = [];
+};
+
+let clearInput = () => {
+  inputValue.value = "";
+  entryBtn.classList.remove("selected");
+  outBtn.classList.remove("selected");
+};
+
+let createArr = (arr, type) => {
+  let newArr = [];
+  if (type === "all") {
+    newArr = arr;
+  } else if (type === "inputs") {
+    arr.forEach((element) => {
+      if (element.categoryID === 1) {
+        newArr.push(element);
+      }
+    });
+  } else {
+    arr.forEach((element) => {
+      if (element.categoryID === 2) {
+        newArr.push(element);
+      }
+    });
+  }
+  return newArr;
+};
+
+let renderValuesData = (arr) => {
+  clearPath();
+  arr.forEach((element) => {
+    createLiElement(element.value, element.categoryID, element.id);
+  });
+  if (arr[0]) {
+    totalAmount.innerText = `R$ ${valueToBrl(
+      valuesArr.reduce((previousElement, currentElement) => {
+        return previousElement + currentElement;
+      })
+    )}`;
+  }
+};
+
+let createObj = (value, categoryID) => {
+  let obj = {};
+  if (insertedValues[0]) {
+    obj = {
+      id: insertedValues[insertedValues.length - 1].id + 1,
+      value: value,
+      categoryID: categoryID,
+    };
+  } else {
+    obj = {
+      id: 0,
+      value: value,
+      categoryID: categoryID,
+    };
+  }
+  return obj;
 };
 
 let createLiElement = (value, categoryID, id) => {
@@ -115,69 +177,6 @@ let renderNoValueBox = () => {
   inputsSection.appendChild(li);
 };
 
-let clearPath = () => {
-  inputsSection.innerHTML = "";
-  valuesArr = [];
-};
-
-let clearInput = () => {
-  inputValue.value = "";
-  entryBtn.classList.remove("selected");
-  outBtn.classList.remove("selected");
-};
-
-let renderValuesData = (arr) => {
-  clearPath();
-  arr.forEach((element) => {
-    createLiElement(element.value, element.categoryID, element.id);
-  });
-  if (arr[0]) {
-    totalAmount.innerText = `R$ ${valueToBrl(
-      valuesArr.reduce((previousElement, currentElement) => {
-        return previousElement + currentElement;
-      })
-    )}`;
-  }
-};
-
-let createObj = (value, categoryID) => {
-  let obj = {};
-  if (insertedValues[0]) {
-    obj = {
-      id: insertedValues[insertedValues.length - 1].id + 1,
-      value: value,
-      categoryID: categoryID,
-    };
-  } else {
-    obj = {
-      id: 0,
-      value: value,
-      categoryID: categoryID,
-    };
-  }
-  return obj;
-};
-
-let createArr = (arr, type) => {
-  let newArr = [];
-  if (type === "all") {
-   newArr = arr
-  } else if (type === "inputs") {
-    arr.forEach((element) => {
-      if (element.categoryID === 1) {
-        newArr.push(element);
-      }
-    });
-  } else {
-    arr.forEach((element) => {
-      if (element.categoryID === 2) {
-        newArr.push(element);
-      }
-    });
-  }
-  return newArr;
-};
-
 let events = () => {
   pushValue.addEventListener("click", (event) => {
     let value = event.target.offsetParent.children[2].children[2].value;
@@ -233,7 +232,7 @@ let events = () => {
 
     if (!arr[0]) {
       renderNoValueBox();
-      totalAmount.innerText = 'RS 00,00'
+      totalAmount.innerText = "RS 00,00";
     }
   });
 
@@ -247,7 +246,7 @@ let events = () => {
 
     if (!arr[0]) {
       renderNoValueBox();
-      totalAmount.innerText = 'RS 00,00'
+      totalAmount.innerText = "RS 00,00";
     }
   });
 
@@ -263,7 +262,7 @@ let events = () => {
 
     if (!arr[0]) {
       renderNoValueBox();
-      totalAmount.innerText = 'RS 00,00'
+      totalAmount.innerText = "RS 00,00";
     }
   });
 };
