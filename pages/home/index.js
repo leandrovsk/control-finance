@@ -177,6 +177,15 @@ let renderNoValueBox = () => {
   inputsSection.appendChild(li);
 };
 
+let checkTab = (categoryID) => {
+   let categoryName = categoryID === 1 ? 'inputs' : categoryID === 2 ? 'outputs' : -1
+   if(categoryName === selectedOutput) {
+      return true
+   } else {
+      return false
+   }
+}
+
 let events = () => {
   pushValue.addEventListener("click", (event) => {
     let value = event.target.offsetParent.children[2].children[2].value;
@@ -190,7 +199,9 @@ let events = () => {
          let newValue = valueToUsd(value);
          let newObj = createObj(newValue, categoryID);
          insertedValues.push(newObj);
-         renderValuesData(createArr(insertedValues, selectedOutput));
+         if(checkTab(categoryID) || selectedOutput === 'all') {
+            renderValuesData(createArr(insertedValues, selectedOutput));
+         }
          clearInput();
        } else {
          alert("selecione o tipo de entrada");
