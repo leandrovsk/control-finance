@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Control Finance - Seu controle financeiro"
+    />
+    <title>Control Finance</title>
+    <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/styles/globalStyles.css" />
+    <link rel="stylesheet" href="/pages/home/index.css" />
+    <link rel="stylesheet" href="/styles/buttons.css" />
+    <link rel="stylesheet" href="/styles/inputs.css" />
+    <link rel="stylesheet" href="styles/modal.css" />
+  </head>
+  <body>
+    <section class="modal-wrapper hidden">
+        <div class="modal">
+            <span class="modal-title-wrapper">
+                <p class="modal-title">Registro de valor</p>
+                <button class="close-modal-btn">X</button>
+            </span>
+            <p class="modal-desc">Digite o valor e em seguida aperte no botão referente ao tipo de valor</p>
+            <span class="value-wrapper">
+                <label for="insert-value">Valor</label>
+                <p class="monetary-symbol">R$</p>
+                <input type="text" id="insert-value" class="insert-value" placeholder="00,00">
+            </span>
+            <span class="value-type-wrapper">
+                <p class="value-type-desc">Tipo de valor</p>
+                <button class="modal-value-btn entry-btn">Entrada</button>
+                <button class="modal-value-btn out-btn">Saída</button>
+            </span>
+            <span class="lower-btn-wrapper">
+                <button class="lower-btn cancel-btn">Cancelar</button>
+                <button class="lower-btn push-value-btn">Inserir valor</button>
+            </span>
+        </div>
+    </section>
+    <header class="header">
+      <menu class="menu-wrapper container">
+        <h1 class="logo">
+          <p class="logo-purple-text">Control</p>
+          Finance
+        </h1>
+        <button class="new-value-btn">Registrar novo valor</button>
+      </menu>
+    </header>
+    <main id="app" class="main-app container">
+      <section class="financial-summary">
+        <p class="summary-desc">Resumo financeiro</p>
+        <nav class="values-wrapper">
+          <button class="values selected-values all-values">Todos</button>
+          <button class="values entry-values">Entradas</button>
+          <button class="values out-values">Saídas</button>
+        </nav>
+      </section>
+      <section class="total-value-section">
+        <p>Soma dos valores</p>
+        <p class="total-amount">R$ 00,00</p>
+      </section>
+      <section">
+        <ul class="inputs-section"></ul>
+      </section>
+    </main>
+    <script src="/scripts/modal.js"></script>
+    <script src="/pages/home/valuesData.js"></script>
+    <script src="/pages/home/index.js"></script>
+  </body>
+</html>
