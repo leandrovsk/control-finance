@@ -180,19 +180,23 @@ let renderNoValueBox = () => {
 let events = () => {
   pushValue.addEventListener("click", (event) => {
     let value = event.target.offsetParent.children[2].children[2].value;
-    let categoryID = entryBtn.classList.contains("selected")
-      ? 1
-      : outBtn.classList.contains("selected")
-      ? 2
-      : -1;
-    if (categoryID === 1 || categoryID === 2) {
-      let newValue = valueToUsd(value);
-      let newObj = createObj(newValue, categoryID);
-      insertedValues.push(newObj);
-      renderValuesData(createArr(insertedValues, selectedOutput));
-      clearInput();
+    if(value !== '') {
+       let categoryID = entryBtn.classList.contains("selected")
+         ? 1
+         : outBtn.classList.contains("selected")
+         ? 2
+         : -1;
+       if (categoryID === 1 || categoryID === 2) {
+         let newValue = valueToUsd(value);
+         let newObj = createObj(newValue, categoryID);
+         insertedValues.push(newObj);
+         renderValuesData(createArr(insertedValues, selectedOutput));
+         clearInput();
+       } else {
+         alert("selecione o tipo de entrada");
+       }
     } else {
-      alert("selecione o tipo de entrada");
+      alert('campo vazio')
     }
   });
 
