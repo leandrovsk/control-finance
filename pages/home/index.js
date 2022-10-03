@@ -16,26 +16,24 @@ let selectedOutput = "all";
 
 let valueToBrl = (value) => {
   oldValue = (Math.round(value * 100) / 100).toFixed(2);
-  newValue = "";
-  for (let obj in oldValue) {
-    if (oldValue[obj] === ".") {
-      newValue += ",";
-    } else {
-      newValue += oldValue[obj];
-    }
-  }
+  arrValue = oldValue.toString().split("");
+  newValue = arrValue
+    .map((element) => {
+      let value = element === "." ? "," : element;
+      return value;
+    })
+    .join("");
   return newValue;
 };
 
 let valueToUsd = (value) => {
-  let newValue = "";
-  for (let obj in value) {
-    if (value[obj] === ",") {
-      newValue += ".";
-    } else {
-      newValue += value[obj];
-    }
-  }
+  arrValue = value.toString().split("");
+  newValue = arrValue
+    .map((element) => {
+      let value = element === "," ? "." : element;
+      return value;
+    })
+    .join("");
   return parseFloat(newValue);
 };
 
@@ -55,16 +53,12 @@ let createArr = (arr, type) => {
   if (type === "all") {
     newArr = arr;
   } else if (type === "inputs") {
-    arr.forEach((element) => {
-      if (element.categoryID === 1) {
-        newArr.push(element);
-      }
+    newArr = arr.filter((element) => {
+      return element.categoryID === 1;
     });
   } else {
-    arr.forEach((element) => {
-      if (element.categoryID === 2) {
-        newArr.push(element);
-      }
+    newArr = arr.filter((element) => {
+      return element.categoryID === 2;
     });
   }
   return newArr;
@@ -178,36 +172,37 @@ let renderNoValueBox = () => {
 };
 
 let checkTab = (categoryID) => {
-   let categoryName = categoryID === 1 ? 'inputs' : categoryID === 2 ? 'outputs' : -1
-   if(categoryName === selectedOutput) {
-      return true
-   } else {
-      return false
-   }
-}
+  let categoryName =
+    categoryID === 1 ? "inputs" : categoryID === 2 ? "outputs" : -1;
+  if (categoryName === selectedOutput) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
 let events = () => {
   pushValue.addEventListener("click", (event) => {
     let value = event.target.offsetParent.children[2].children[2].value;
-    if(value !== '') {
-       let categoryID = entryBtn.classList.contains("selected")
-         ? 1
-         : outBtn.classList.contains("selected")
-         ? 2
-         : -1;
-       if (categoryID === 1 || categoryID === 2) {
-         let newValue = valueToUsd(value);
-         let newObj = createObj(newValue, categoryID);
-         insertedValues.push(newObj);
-         if(checkTab(categoryID) || selectedOutput === 'all') {
-            renderValuesData(createArr(insertedValues, selectedOutput));
-         }
-         clearInput();
-       } else {
-         alert("selecione o tipo de entrada");
-       }
+    if (value !== "") {
+      let categoryID = entryBtn.classList.contains("selected")
+        ? 1
+        : outBtn.classList.contains("selected")
+        ? 2
+        : -1;
+      if (categoryID === 1 || categoryID === 2) {
+        let newValue = valueToUsd(value);
+        let newObj = createObj(newValue, categoryID);
+        insertedValues.push(newObj);
+        if (checkTab(categoryID) || selectedOutput === "all") {
+          renderValuesData(createArr(insertedValues, selectedOutput));
+        }
+        clearInput();
+      } else {
+        alert("selecione o tipo de entrada");
+      }
     } else {
-      alert('campo vazio')
+      alert("campo vazio");
     }
   });
 
@@ -247,7 +242,7 @@ let events = () => {
 
     if (!arr[0]) {
       renderNoValueBox();
-      totalAmount.innerText = "RS 00,00";
+      totalAmount.innerText = "R$ 00,00";
     }
   });
 
@@ -261,7 +256,7 @@ let events = () => {
 
     if (!arr[0]) {
       renderNoValueBox();
-      totalAmount.innerText = "RS 00,00";
+      totalAmount.innerText = "R$ 00,00";
     }
   });
 
@@ -275,7 +270,7 @@ let events = () => {
 
     if (!arr[0]) {
       renderNoValueBox();
-      totalAmount.innerText = "RS 00,00";
+      totalAmount.innerText = "R$ 00,00";
     }
   });
 };
