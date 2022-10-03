@@ -1,0 +1,17 @@
+.insert-value {
+   height: 44px;
+   border-radius: var(--radius-1);
+   border: 0.1rem solid var(--color-grey-3);
+   padding-left: 40px;
+   outline: none;
+   color: var(--color-grey-1);
+ }
+ 
+ .insert-value:focus {
+   border: 0.1rem solid var(--color-brand-1);
+ }
+ 
+ .insert-value::placeholder {
+   color: var(--color-grey-2);
+ }
+ 

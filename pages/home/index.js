@@ -266,10 +266,8 @@ let events = () => {
   });
 
   outValues.addEventListener("click", () => {
-    selectedOutput = "outputs";
-
     let arr = createArr(insertedValues, "outputs");
-
+    selectedOutput = "outputs";
     allValues.classList.remove("selected-values");
     entryValues.classList.remove("selected-values");
     outValues.classList.add("selected-values");
